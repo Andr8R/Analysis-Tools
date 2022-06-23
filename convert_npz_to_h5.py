@@ -4,7 +4,7 @@ from utils import check_output_path, set_logging
 import argparse
 
 def process_multi_npz(data_dir):
-    log_pth = os.path.join(data_dir, "../../logs", "log_npz_to_h5.log")
+    log_pth = os.path.join(data_dir, "logs", "log_npz_to_h5.log")
     check_output_path(log_pth)
     set_logging(log_pth)
     total_count = 0
@@ -13,8 +13,8 @@ def process_multi_npz(data_dir):
         log_text = f"Processing part {part} in {data_dir} \n"
         print(log_text), logging.info(log_text)
 
-        npz_dir = data_dir
-        h5_dir = os.path.join(data_dir, "../h5data/")
+        npz_dir = os.path.join(data_dir, part, "npzdata/")
+        h5_dir = os.path.join(data_dir, part, "h5data/")
         check_output_path(h5_dir)
 
         for npz_file in os.listdir(npz_dir):
@@ -37,7 +37,7 @@ def process_multi_npz(data_dir):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data-dir', type=str, default = 'test_run/4/npzdata')   
+    parser.add_argument('--data-dir', type=str, default = 'test_run')   
     args = parser.parse_args()
     print(args)
 
